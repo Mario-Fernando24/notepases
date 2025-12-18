@@ -28,6 +28,9 @@ dependencies:
   # Convierte direcciones en coordenadas y viceversa.
   # Útil para transformar texto en lat/lng o mostrar direcciones legibles.
   geocoding: ^4.0.0
+  # Para dibujar rutas en el mapa
+  flutter_polyline_points: ^3.1.0
+
 
 # Permite dibujar rutas y polilíneas en Google Maps.
 # Se usa para mostrar recorridos, trayectos o caminos entre puntos.
