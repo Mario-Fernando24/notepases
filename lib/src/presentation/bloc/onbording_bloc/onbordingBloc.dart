@@ -1,12 +1,15 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notepases/src/domain/models/DTO/locationPermissionResult.dart';
+import 'package:notepases/src/domain/useCases/geolocator/GeolocatorUseCase.dart';
 import 'package:notepases/src/presentation/bloc/onbording_bloc/onbordingEvent.dart';
 import 'package:notepases/src/presentation/bloc/onbording_bloc/onbordingState.dart';
 
 
 class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
   final int lastPageIndex;
+  final GeolocatorUseCase geolocatorUseCase;
 
-  OnboardingBloc({this.lastPageIndex = 1}) : super(const OnboardingState()) {
+  OnboardingBloc(this.geolocatorUseCase, this.lastPageIndex) : super(const OnboardingState()) {
     on<OnboardingPageChanged>(_onPageChanged);
     on<OnboardingNextPressed>(_onNextPressed);
     on<OnboardingSkipPressed>(_onSkipPressed);
@@ -44,14 +47,24 @@ class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
   ) async {
     try {
       emit(state.copyWith(requestingPermission: true, clearError: true));
+       
+      LocationPermissionResult resp = await geolocatorUseCase.requestLocationPermissionUseCase.run();
+      
+      if (!resp.isGranted) {
+        emit(state.copyWith(
+          requestingPermission: false,
+          error: resp.message,
+        ));
+        return;
+      }
 
-      // TODO: reemplaza por tu implementación real:
-      // final ok = await locationPermissionService.requestAlways();
-      // if (!ok) throw Exception('Permiso denegado');
+      print('******************** RESPUESTA PERMISO ********************');
+      print(resp.isGranted);
+      print(resp.message);
+      print('****************************************************');
 
-      await Future.delayed(const Duration(milliseconds: 450)); // demo
 
-      emit(state.copyWith(requestingPermission: false));
+     // emit(state.copyWith(requestingPermission: false));
       add(const OnboardingNextPressed());
     } catch (_) {
       emit(state.copyWith(

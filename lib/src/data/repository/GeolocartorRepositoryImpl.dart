@@ -4,11 +4,55 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:notepases/src/data/api/ApiConfig.dart';
+import 'package:notepases/src/domain/models/DTO/locationPermissionResult.dart';
 import 'package:notepases/src/domain/models/PlaceMarkData.dart';
 import 'package:notepases/src/domain/repository/GeolocatorRepository.dart';
 
 
 class Geolocartorrepositoryimpl implements GeolocatorRepository {
+
+ @override
+Future<LocationPermissionResult> requestLocationPermission() async {
+  // 1️⃣ Verificar si el GPS está activo
+  final serviceEnabled = await Geolocator.isLocationServiceEnabled();
+
+  if (!serviceEnabled) {
+    return LocationPermissionResult(
+      isGranted: false,
+      message: 'Por favor activa el GPS para continuar.',
+    );
+  }
+
+  // 2️⃣ Verificar permisos actuales
+  LocationPermission permission = await Geolocator.checkPermission();
+
+  // 3️⃣ Solicitar permiso si está denegado
+  if (permission == LocationPermission.denied) {
+    permission = await Geolocator.requestPermission();
+  }
+
+  // 4️⃣ Casos de rechazo
+  if (permission == LocationPermission.denied) {
+    return LocationPermissionResult(
+      isGranted: false,
+      message: 'Permiso de ubicación denegado.',
+    );
+  }
+
+  if (permission == LocationPermission.deniedForever) {
+    return LocationPermissionResult(
+      isGranted: false,
+      message:
+          'El permiso de ubicación fue bloqueado permanentemente. Habilítalo desde ajustes.',
+    );
+  }
+
+  // 5️⃣ Todo OK
+  return LocationPermissionResult(
+    isGranted: true,
+    message: 'Permiso de ubicación concedido.',
+  );
+}
 
   /// Método principal para obtener la posición actual del usuario.
   /// Retorna un objeto [Position] con latitud, longitud, precisión, etc.

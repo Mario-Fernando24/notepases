@@ -32,9 +32,7 @@ class _OnbordingPageState extends State<OnbordingPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => OnboardingBloc(lastPageIndex: 1),
-      child: BlocListener<OnboardingBloc, OnboardingState>(
+    return  BlocListener<OnboardingBloc, OnboardingState>(
         listenWhen: (p, c) => p.pageIndex != c.pageIndex || p.finished != c.finished,
         listener: (context, state) async {
           if (state.finished) {
@@ -86,8 +84,8 @@ class _OnbordingPageState extends State<OnbordingPage> {
               },
             ),
           ),
-        ),
-      ),
-    );
+         )
+        );
+    
   }
 }
