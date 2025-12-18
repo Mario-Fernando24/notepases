@@ -4,9 +4,11 @@ import 'package:notepases/blocProviders.dart';
 import 'package:notepases/src/presentation/routes/app_routes.dart';
 import 'package:notepases/src/presentation/routes/route_names.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+  runApp(
+    MultiBlocProvider(providers: [...blocProviders], child: const MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -14,19 +16,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: blocProviders,
-      child: MaterialApp(
-       // FToastBuilder sirves para mostrar toasts personalizados en la aplicación 
-       // builder: FToastBuilder(),
-        debugShowCheckedModeBanner: false,
-        title: 'notepases',
-        theme: ThemeData(
-          //colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurpleAccent),
-        ),
-         initialRoute: RouteNames.onboarding,
-        routes: AppRoutes.routes,
+    return MaterialApp(
+      // FToastBuilder sirves para mostrar toasts personalizados en la aplicación
+      // builder: FToastBuilder(),
+      debugShowCheckedModeBanner: false,
+      title: 'notepases',
+      theme: ThemeData(
+        //colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurpleAccent),
       ),
+      initialRoute: RouteNames.onboarding,
+      routes: AppRoutes.routes,
     );
   }
 }

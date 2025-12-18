@@ -13,6 +13,26 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_bloc: ^9.1.1
   equatable: ^2.0.7
+ # Plugin principal para integrar Google Maps en Flutter.
+  # Permite mostrar mapas, marcadores, cámaras y eventos de interacción.
+  google_maps_flutter: ^2.13.1
+
+  # Obtiene la ubicación del dispositivo en tiempo real.
+  # Se usa para GPS, seguimiento del usuario y cálculos de distancia.
+  geolocator: ^14.0.2
+
+  # Autocompletado de direcciones y lugares usando Google Places API.
+  # Ideal para buscadores de direcciones y selección de puntos en el mapa.
+  google_places_flutter: ^2.1.0
+
+  # Convierte direcciones en coordenadas y viceversa.
+  # Útil para transformar texto en lat/lng o mostrar direcciones legibles.
+  geocoding: ^4.0.0
+
+# Permite dibujar rutas y polilíneas en Google Maps.
+# Se usa para mostrar recorridos, trayectos o caminos entre puntos.
+flutter_polyline_points: ^3.1.0
+
 
 dev_dependencies:
   flutter_test:
@@ -42,17 +62,18 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/to/font-from-package
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter/static/Inter-Regular.ttf
+    - family: OpenSans
+      fonts:
+        - asset: assets/fonts/Open_Sans/static/OpenSans/OpenSans-Regular.ttf
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto/Roboto-Bold.ttf
+        - asset: assets/fonts/Roboto/Roboto-BoldItalic.ttf
+          weight: 700
+  # To add assets to your package, add an assets section, like this:
+  assets:
+    - assets/images/success.png
