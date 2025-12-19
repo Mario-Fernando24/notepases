@@ -15,15 +15,40 @@ class LocationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OnbSlide(
-      icon: Icons.location_on_outlined,
-      title: 'Permisos de Ubicación',
-      description: 'Para alertarte a tiempo, necesitamos acceder a tu ubicación incluso cuando la app esté cerrada.\n\nTu privacidad es importante y tus datos nunca se comparten.',
-      primaryText: loading ? 'Solicitando...' : 'Permitir ubicación "Siempre"',
-      onPrimary: loading ? null : onAllowAlways,
-      secondaryText: 'Más tarde',
-      onSecondary: loading ? null : onLater,
-      outlined: true,
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: const AssetImage(
+                  'assets/images/fondo_onbording_dos.png',
+                ),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.6),
+                  BlendMode.darken,
+                ),
+              ),
+            ),
+          ),
+        ),
+        SafeArea(
+          child: OnbSlide(
+            icon: Icons.location_on_outlined,
+            title: 'Permisos de Ubicación',
+            description:
+                'Necesitamos tu ubicación para avisarte cuando estés llegando, incluso con la app cerrada.\n\nTu privacidad siempre está protegida.',
+            primaryText: loading
+                ? 'Solicitando...'
+                : 'Permitir ubicación "Siempre"',
+            onPrimary: loading ? null : onAllowAlways,
+            secondaryText: 'Más tarde',
+            onSecondary: loading ? null : onLater,
+            outlined: true,
+          ),
+        ),
+      ],
     );
   }
 }

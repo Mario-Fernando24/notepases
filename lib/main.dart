@@ -1,18 +1,36 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notepases/blocProviders.dart';
+import 'package:notepases/firebase_options.dart';
 import 'package:notepases/injection.dart';
 import 'package:notepases/src/presentation/routes/app_routes.dart';
 import 'package:notepases/src/presentation/routes/route_names.dart';
 
-void main() async {
+Future<void> main() async {
+  // 1️⃣ SIEMPRE primero
   WidgetsFlutterBinding.ensureInitialized();
+
+  // 2️⃣ Inicializar Firebase
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  print('Firebase apps: ${Firebase.apps.length}');
+  print('ProjectId: ${Firebase.apps.first.options.projectId}');
+  // 3️⃣ Inyección de dependencias
   await configureDependencies();
 
+  // 4️⃣ Run App con BLoC
   runApp(
-    MultiBlocProvider(providers: [...blocProviders], child: const MyApp()),
+    MultiBlocProvider(
+      providers: [...blocProviders],
+      child: const MyApp(),
+    ),
   );
 }
+
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

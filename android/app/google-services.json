@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "628468402502",
+    "project_id": "notepases-1c53a",
+    "storage_bucket": "notepases-1c53a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:628468402502:android:a39ceece9b875a2fc33d47",
+        "android_client_info": {
+          "package_name": "com.mobileapp.notepases"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7Z_uYAWqg3EpJjk1kvqczyi3ygVywBo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

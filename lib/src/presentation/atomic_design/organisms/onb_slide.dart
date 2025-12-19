@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:notepases/src/presentation/atomic_design/foundations/typo.dart';
-import 'package:notepases/src/presentation/atomic_design/tokens/sizes.dart';
 import '../molecules/onb_actions.dart';
 
 class OnbSlide extends StatelessWidget {
   final IconData icon;
   final String title;
   final String description;
-
   final String primaryText;
   final VoidCallback? onPrimary;
 
@@ -37,14 +35,13 @@ class OnbSlide extends StatelessWidget {
       child: Column(
         children: [
           const Spacer(),
-          Icon(icon, size: NotePaseSizes.sizeSL, color: Colors.deepPurpleAccent),
-          const SizedBox(height: 22),
+           SizedBox(height: MediaQuery.of( context).size.height * 0.40),
           Text(
             title,
             textAlign: TextAlign.center,
             style:  TextStyle(
               color: Colors.white,
-              fontSize: 40,
+              fontSize: 30,
               fontFamily: NoTePaseTypographyFoundation.familytitleLog,
             ),
           ),
@@ -60,7 +57,7 @@ class OnbSlide extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          OnbActions(
+         OnbActions(
             outlined: outlined,
             primaryText: primaryText,
             onPrimary: onPrimary,

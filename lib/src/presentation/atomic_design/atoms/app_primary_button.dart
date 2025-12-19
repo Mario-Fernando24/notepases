@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:notepases/src/presentation/atomic_design/foundations/typo.dart';
 
 class AppPrimaryButton extends StatefulWidget {
@@ -8,6 +9,13 @@ class AppPrimaryButton extends StatefulWidget {
   final Color backgroundColor;
   final String text;
   final VoidCallback? onPressed;
+  final double siceIcono;
+  final String fontFamily;
+  
+  // Nuevos parámetros para el icono
+  final IconData? icon; 
+  final bool showIcon;
+  final Color colorIcono;
 
   const AppPrimaryButton({
     super.key,
@@ -17,6 +25,12 @@ class AppPrimaryButton extends StatefulWidget {
     this.backgroundColor = Colors.deepPurpleAccent,
     required this.text,
     required this.onPressed,
+    this.siceIcono = 20.0,
+    this.fontFamily = NoTePaseTypographyFoundation.familyText,
+
+    this.icon,           // Icono opcional
+    this.showIcon = false, // Por defecto no se muestra
+    this.colorIcono = Colors.white, // Color por defecto del icono  
   });
 
   @override
@@ -24,6 +38,31 @@ class AppPrimaryButton extends StatefulWidget {
 }
 
 class _AppPrimaryButtonState extends State<AppPrimaryButton> {
+  
+  // Widget auxiliar para construir el contenido del botón
+  Widget _buildContent() {
+    final textWidget = Text(
+      widget.text,
+      style: TextStyle(
+        color: widget.outlined ? widget.colorText : Colors.white,
+        fontFamily: widget.fontFamily,
+      ),
+    );
+
+    if (widget.showIcon && widget.icon != null) {
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          FaIcon(widget.icon, size: widget.siceIcono, color: widget.colorIcono,),
+          const SizedBox(width: 8), // Espacio entre icono y texto
+          textWidget,
+        ],
+      );
+    }
+    return textWidget;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -33,22 +72,24 @@ class _AppPrimaryButtonState extends State<AppPrimaryButton> {
           ? OutlinedButton(
               onPressed: widget.onPressed,
               style: OutlinedButton.styleFrom(
-                side:  BorderSide(color: widget.color),
+                side: BorderSide(color: widget.color),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(28),
                 ),
               ),
-              child: Text(widget.text, style:  TextStyle(color: widget.colorText,fontFamily: NoTePaseTypographyFoundation.familyBody)),
+              child: _buildContent(),
             )
           : ElevatedButton(
               onPressed: widget.onPressed,
               style: ElevatedButton.styleFrom(
                 backgroundColor: widget.backgroundColor,
+                foregroundColor: Colors.white, // Color para el splash e iconos
                 shape: RoundedRectangleBorder(
+                  side: BorderSide(color: widget.color),
                   borderRadius: BorderRadius.circular(28),
                 ),
               ),
-              child: Text(widget.text, style: const TextStyle(color: Colors.white,fontFamily: NoTePaseTypographyFoundation.familyBody)),
+              child: _buildContent(),
             ),
     );
   }
