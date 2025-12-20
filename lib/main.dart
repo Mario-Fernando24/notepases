@@ -8,20 +8,20 @@ import 'package:notepases/src/presentation/routes/app_routes.dart';
 import 'package:notepases/src/presentation/routes/route_names.dart';
 
 Future<void> main() async {
-  // 1️⃣ SIEMPRE primero
+  // SIEMPRE primero
   WidgetsFlutterBinding.ensureInitialized();
 
-  // 2️⃣ Inicializar Firebase
+  // Inicializar Firebase
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
   print('Firebase apps: ${Firebase.apps.length}');
   print('ProjectId: ${Firebase.apps.first.options.projectId}');
-  // 3️⃣ Inyección de dependencias
+  // Inyección de dependencias
   await configureDependencies();
 
-  // 4️⃣ Run App con BLoC
+  // Run App con BLoC
   runApp(
     MultiBlocProvider(
       providers: [...blocProviders],
@@ -29,7 +29,6 @@ Future<void> main() async {
     ),
   );
 }
-
 
 
 class MyApp extends StatelessWidget {
